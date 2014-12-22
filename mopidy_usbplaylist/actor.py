@@ -12,15 +12,17 @@ from .playlists import USBPlaylistProvider
 logger = logging.getLogger(__name__)
 
 
-class USBPlaylistBackend(pykka.ThreadingActor, backend.Backend):
+class USBPlaylistsBackend(pykka.ThreadingActor, backend.Backend):
     name = 'usbplaylist'
 
     def __init__(self, config, audio):
-        super(USBPlaylistBackend, self).__init__()
+        super(USBPlaylistsBackend, self).__init__()
 
         self.config=config
         
-        self.playlists = USBPlaylistProvider
+        self.playlists = USBPlaylistProvider(backend=self)
+        
+        self.uri_schemes = ['usb']
 
     def on_start(self):
         self.playlists.refresh()

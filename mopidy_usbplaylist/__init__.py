@@ -23,6 +23,6 @@ class Extension(ext.Extension):
         return schema
 
     def setup(self, registry):
-        from .actor import USBPlaylistBackend
+        from .actor import USBPlaylistsBackend
 
-        registry.add('backend', USBPlaylistBackend)
+        registry.add('backend', USBPlaylistsBackend)
